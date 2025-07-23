@@ -176,7 +176,7 @@ try:
                 .sort_values("Team Points", ascending=False)
             )
 
-            with st.expander(f"🧑‍🤝‍🧑 {team} — Total Points: {team_total}", expanded=False):
+            with st.expander(f"🧑‍🤝‍🧑 {team} —{team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
             
     with tab3:
