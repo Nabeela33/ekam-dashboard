@@ -1,11 +1,13 @@
 import streamlit as st
 import pandas as pd
 import os
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # File paths
 scoreboard_file = "EKAM 2025-ScoreBoard.xlsx"
 schedule_file = "Scoring Schedule 2025.xlsx"
-#download_path = r"C:\Users\611612883\Downloads"
 
 scoreboard_path = scoreboard_file
 schedule_path = schedule_file
@@ -136,8 +138,25 @@ try:
     col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
     col3.metric("🎽 Total Players", f"{unique_players:,}")
 
+    st.subheader("⭐ Top 10 Players by Points")
+    top_players = (score_df.dropna(subset=["Player", "Team Points"])
+                            .groupby("Player")["Team Points"]
+                            .sum()
+                            .sort_values(ascending=False)
+                            .head(10)
+                            .reset_index())
 
-    # Tabs
+    player_chart = px.bar(top_players, x="Team Points", y="Player", orientation="h",
+                          title="Top 10 Scoring Players", color="Team Points",
+                          color_continuous_scale="viridis")
+    st.plotly_chart(player_chart, use_container_width=True)
+
+    if "Date" in score_df.columns:
+        st.subheader("📅 Matches Played Over Time")
+        date_counts = score_df.dropna(subset=["Date"]).groupby("Date")["Match No"].nunique().reset_index(name="Matches")
+        trend_fig = px.line(date_counts, x="Date", y="Matches", title="Matches Per Day")
+        st.plotly_chart(trend_fig, use_container_width=True)
+
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
         "🏸 Badminton Events",
@@ -152,10 +171,7 @@ try:
     with tab2:
         st.subheader("📋 Team and Player Points")
 
-        # Ensure Team Points are numeric
         score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
-
-        # Compute total team points and sort descending
         team_totals = (
             score_df.dropna(subset=["Team Name"])
             .groupby("Team Name")["Team Points"]
@@ -163,22 +179,40 @@ try:
             .sort_values(ascending=False)
         )
 
-        # Display sorted teams with player breakdown
         for team in team_totals.index:
             group = score_df[score_df["Team Name"] == team]
             team_total = team_totals[team]
-
-            # Group player-wise points
             team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
             team_players_df = (
                 team_players_df.groupby("Player", as_index=False)
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-
             with st.expander(f"🧑‍🤝‍🧑 {team} —{team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
-            
+
+        st.subheader("📊 Player Distribution by Team")
+        player_team_counts = score_df.dropna(subset=["Team Name", "Player"]).groupby("Team Name")["Player"].nunique().reset_index(name="Unique Players")
+        fig = px.pie(player_team_counts, names="Team Name", values="Unique Players", 
+                     title="Player Count per Team", color_discrete_sequence=px.colors.sequential.RdBu)
+        st.plotly_chart(fig, use_container_width=True)
+
+        st.subheader("🏆 Total Points by Team")
+        team_bar_chart = px.bar(team_totals.reset_index(), x="Team Name", y="Team Points",
+                                title="Team Points Comparison", color="Team Points",
+                                color_continuous_scale="blues")
+        st.plotly_chart(team_bar_chart, use_container_width=True)
+
+        st.subheader("🔥 Team Points Heatmap")
+        heatmap_data = (score_df.dropna(subset=["Team Name", "Game", "Team Points"])
+                        .groupby(["Team Name", "Game"])["Team Points"]
+                        .sum()
+                        .reset_index())
+        pivot_df = heatmap_data.pivot(index="Team Name", columns="Game", values="Team Points").fillna(0)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.heatmap(pivot_df, annot=True, fmt=".0f", cmap="YlGnBu", ax=ax)
+        st.pyplot(fig)
+
     with tab3:
         display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
         display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
@@ -206,9 +240,7 @@ try:
 
     with tab9:
         display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
-    
 
-                
 except FileNotFoundError as fnf_err:
     st.error(f"❌ File not found: `{fnf_err.filename}`")
 except Exception as e:
