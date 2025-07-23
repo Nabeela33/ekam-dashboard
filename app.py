@@ -136,57 +136,20 @@ try:
     col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
     col3.metric("🎽 Total Players", f"{unique_players:,}")
 
-    with st.expander("📊 Team Points Bar Chart", expanded=True):
-        if not team_points_df.empty and "Total Points" in team_points_df.columns:
-            chart_df = team_points_df[["Team Name", "Total Points"]].sort_values("Total Points", ascending=False)
-            st.bar_chart(data=chart_df.set_index("Team Name"))
 
     # Tabs
-    tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
-        "📈 Team Standings", 
+    tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
+        "📈 Team & Player Points", 
         "🏸 Badminton Events",
         "🏓 TT Events",
         "♟ Chess Events",
         "🔴 Carrom Events",
         "🎲 Ludo Events",
         "🎯 Dart Events",
-        "🔢 Sudoku Events",
-        "📋 Team & Player Points"
+        "🔢 Sudoku Events"
     ])
 
     with tab2:
-        st.subheader("📈 Team Standings")
-        st.dataframe(team_points_df, use_container_width=True)
-
-    with tab3:
-        display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
-        display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
-        display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
-        display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
-        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
-
-    with tab4:
-        display_event_with_rounds(tab4, TT_men_df, "🏓", "TT - Men's Singles")
-        display_event_with_rounds(tab4, TT_women_df, "🏓", "TT - Women's Singles")
-        display_event_with_rounds(tab4, TT_womendoubles_df, "🏓", "TT - Women's Doubles")
-        display_event_with_rounds(tab4, TT_mendoubles_df, "🏓", "TT - Men's Doubles")
-
-    with tab5:
-        display_event_with_rounds(tab5, chess_df, "♟", "Chess")
-
-    with tab6:
-        display_event_with_rounds(tab6, carrom_df, "🔴", "Carrom")
-
-    with tab7:
-        display_event_with_rounds(tab7, ludo_df, "🎲", "Ludo")
-
-    with tab8:
-        display_event_with_rounds(tab8, dart_df, "🎯", "Dart")
-
-    with tab9:
-        display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
-    
-    with tab10:
         st.subheader("📋 Team and Player Points")
 
         # Ensure Team Points are numeric
@@ -215,6 +178,36 @@ try:
 
             with st.expander(f"🧑‍🤝‍🧑 {team} — Total Points: {team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
+            
+    with tab3:
+        display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
+        display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
+        display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
+        display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
+        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
+
+    with tab4:
+        display_event_with_rounds(tab4, TT_men_df, "🏓", "TT - Men's Singles")
+        display_event_with_rounds(tab4, TT_women_df, "🏓", "TT - Women's Singles")
+        display_event_with_rounds(tab4, TT_womendoubles_df, "🏓", "TT - Women's Doubles")
+        display_event_with_rounds(tab4, TT_mendoubles_df, "🏓", "TT - Men's Doubles")
+
+    with tab5:
+        display_event_with_rounds(tab5, chess_df, "♟", "Chess")
+
+    with tab6:
+        display_event_with_rounds(tab6, carrom_df, "🔴", "Carrom")
+
+    with tab7:
+        display_event_with_rounds(tab7, ludo_df, "🎲", "Ludo")
+
+    with tab8:
+        display_event_with_rounds(tab8, dart_df, "🎯", "Dart")
+
+    with tab9:
+        display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
+    
+
                 
 except FileNotFoundError as fnf_err:
     st.error(f"❌ File not found: `{fnf_err.filename}`")
