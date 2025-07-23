@@ -17,7 +17,7 @@ st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 with st.sidebar:
     st.markdown("---")
     st.header("🎨 Display Settings")
-    theme_mode = st.radio("Select Theme Mode", ["Light", "Dark"])
+    theme_mode = st.radio("Select Theme Mode", ["Light", "Dark"], index=0)
 
 # Apply dark theme styling
 if theme_mode == "Dark":
