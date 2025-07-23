@@ -57,7 +57,7 @@ st.markdown("""
         <span style='color:#00008B;'>E</span>
         <span style='color:#87CEEB;'>K</span>
         <span style='color:#800000;'>A</span>
-        <span style='color:##FFCC00;'>M</span>
+        <span style='color:##FFFF00;'>M</span>
         2025 - Sports Score Dashboard
     </h1>
 """, unsafe_allow_html=True)
