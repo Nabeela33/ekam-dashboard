@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # File paths
-scoreboard_file = "EKAM 2025-ScoreBoard 1.xlsx"
+scoreboard_file = "EKAM 2025-ScoreBoard.xlsx"
 schedule_file = "Scoring Schedule 2025.xlsx"
 #download_path = r"C:\Users\611612883\Downloads"
 
