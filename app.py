@@ -102,7 +102,7 @@ try:
 
     with st.sidebar:
         st.markdown("---")
-        st.header("🔍 Common Filters")
+        st.header("🔍 Filters")
         all_teams = set(score_df["Team Name"].dropna().unique())
         all_player = set(score_df["Player"].dropna().unique())
         selected_team = st.selectbox("Select Team", ["All"] + sorted(all_teams))
