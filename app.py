@@ -14,21 +14,6 @@ schedule_path = schedule_file
 st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 
 
-# EKAM-themed background gradient
-ekam_background = """
-<style>
-body, .stApp {
-    background: radial-gradient(circle at top left, #00008B 10%, transparent 20%),
-                radial-gradient(circle at top right, #87CEEB 10%, transparent 20%),
-                radial-gradient(circle at bottom left, #800000 10%, transparent 20%),
-                radial-gradient(circle at bottom right, #FFCC00 10%, transparent 20%);
-    background-color: #ffffff;
-    background-attachment: fixed;
-    font-family: "Segoe UI", sans-serif;
-}
-</style>
-"""
-st.markdown(ekam_background, unsafe_allow_html=True)
 
 # Sidebar: Theme toggle
 with st.sidebar:
