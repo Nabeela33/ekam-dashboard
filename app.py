@@ -136,13 +136,13 @@ try:
 
     col1, col2, col3 = st.columns(3)
     col1.metric("⚔️ Matches Played", f"{unique_matches:,}")
-    col2.metric("🢑 Teams Participating", f"{unique_teams:,}")
+    col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
     col3.metric("🎽 Total Players", f"{unique_players:,}")
 
     # Tabs
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
-        "🎸 Badminton Events",
+        "🏸 Badminton Events",
         "🏓 TT Events",
         "♟ Chess Events",
         "🔴 Carrom Events",
@@ -169,17 +169,17 @@ try:
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-            with st.expander(f"🢑 {team} —{team_total}", expanded=False):
+            with st.expander(f" {team} —{team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
 
     with tab3:
         if selected_gender in [None, "M"]:
-            display_event_with_rounds(tab3, badminton_men_df, "🎸", "Badminton - Men's Singles")
-            display_event_with_rounds(tab3, badminton_mendoubles_df, "🎸", "Badminton - Men's Doubles")
+            display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
+            display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
         if selected_gender in [None, "F"]:
-            display_event_with_rounds(tab3, badminton_women_df, "🎸", "Badminton - Women's Singles")
-            display_event_with_rounds(tab3, badminton_womendoubles_df, "🎸", "Badminton - Women's Doubles")
-        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🎸", "Badminton - Mixed Doubles")
+            display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
+            display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
+        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
 
     with tab4:
         if selected_gender in [None, "M"]:
