@@ -64,7 +64,6 @@ logo_html = f"""
     position: fixed;
     top: 15px;
     right: 20px;
-    z-index: 100;
 }}
 .top-right-logo img {{
     height: 60px;
