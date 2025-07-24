@@ -155,42 +155,42 @@ try:
         "🔢 Sudoku Events"
     ])
 
-with tab2:
-    st.subheader("📋 Team and Player Points")
-    score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
-    team_totals = (
-        score_df.dropna(subset=["Team Name"])
-        .groupby("Team Name")["Team Points"]
-        .sum()
-        .sort_values(ascending=False)
-    )
-
-    for team in team_totals.index:
-        group = score_df[score_df["Team Name"] == team]
-        team_total = team_totals[team]
-        team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
-        team_players_df = (
-            team_players_df.groupby("Player", as_index=False)
+    with tab2:
+        st.subheader("📋 Team and Player Points")
+        score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
+        team_totals = (
+            score_df.dropna(subset=["Team Name"])
+            .groupby("Team Name")["Team Points"]
             .sum()
-            .sort_values("Team Points", ascending=False)
+            .sort_values(ascending=False)
         )
-
-        # Construct GitHub logo URL
-        safe_team_name = team.replace(" ", "%20")
-        logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
-
-        # HTML for label with logo
-        team_label = f"""
-        <div style='display: flex; align-items: center;'>
-            <img src="{logo_url}" style="width:30px;height:30px;margin-right:10px;">
-            <b>{team}</b> — {team_total:.0f}
-        </div>
-        """
-
-        # Display in expander with logo as label
-        with st.expander(label=f"{team}", expanded=False):  # Required label, even though we override it
-            st.markdown(team_label, unsafe_allow_html=True)
-            st.dataframe(team_players_df, use_container_width=True)
+    
+        for team in team_totals.index:
+            group = score_df[score_df["Team Name"] == team]
+            team_total = team_totals[team]
+            team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
+            team_players_df = (
+                team_players_df.groupby("Player", as_index=False)
+                .sum()
+                .sort_values("Team Points", ascending=False)
+            )
+    
+            # Construct GitHub logo URL
+            safe_team_name = team.replace(" ", "%20")
+            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
+    
+            # HTML for label with logo
+            team_label = f"""
+            <div style='display: flex; align-items: center;'>
+                <img src="{logo_url}" style="width:30px;height:30px;margin-right:10px;">
+                <b>{team}</b> — {team_total:.0f}
+            </div>
+            """
+    
+            # Display in expander with logo as label
+            with st.expander(label=f"{team}", expanded=False):  # Required label, even though we override it
+                st.markdown(team_label, unsafe_allow_html=True)
+                st.dataframe(team_players_df, use_container_width=True)
 
 
     with tab3:
