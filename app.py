@@ -174,12 +174,19 @@ try:
 
     with tab3:
         if selected_gender in [None, "M"]:
-            display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
-            display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
+            if not badminton_men_df.empty:
+                display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
+            if not badminton_mendoubles_df.empty:
+                display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
+
         if selected_gender in [None, "F"]:
-            display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
-            display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
-        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
+            if not badminton_women_df.empty:
+                display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
+            if not badminton_womendoubles_df.empty:
+                display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
+
+        if not badminton_mixeddoubles_df.empty:
+            display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
 
     with tab4:
         if selected_gender in [None, "M"]:
