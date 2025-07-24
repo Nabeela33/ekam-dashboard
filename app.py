@@ -231,6 +231,11 @@ try:
     with tab9:
         display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
 
+
+except FileNotFoundError as fnf_err:
+    st.error(f"❌ File not found: `{fnf_err.filename}`")
+except Exception as e:
+    st.error(f"⚠️ An unexpected error occurred:\n\n`{str(e)}`")
 # EKAM Footer with Logo
 footer_logo_url = "https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/EKAM.png"  # Replace with actual path
 footer_html = f"""
@@ -254,9 +259,3 @@ footer_html = f"""
 </div>
 """
 st.markdown(footer_html, unsafe_allow_html=True)
-
-
-except FileNotFoundError as fnf_err:
-    st.error(f"❌ File not found: `{fnf_err.filename}`")
-except Exception as e:
-    st.error(f"⚠️ An unexpected error occurred:\n\n`{str(e)}`")
