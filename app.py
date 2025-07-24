@@ -250,8 +250,8 @@ footer_html = f"""
         background-color: transparent;
     }}
     .footer img {{
-        height: 40px;
-        opacity: 0.8;
+        height: 140px;
+        opacity: 0.9;
     }}
 </style>
 <div class="footer">
