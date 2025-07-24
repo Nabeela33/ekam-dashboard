@@ -57,6 +57,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 def display_event_with_rounds(tab, df, emoji, title):
+    if df is None or df.empty:
+        return  # Do nothing if df is None or empty
+
     if "Round" in df.columns:
         unique_rounds = df["Round"].dropna().astype(str).str.strip().unique()
         for round_name in sorted(unique_rounds, key=lambda x: (
@@ -67,8 +70,9 @@ def display_event_with_rounds(tab, df, emoji, title):
             round_df = df[df["Round"].astype(str).str.strip().str.lower() == round_name.strip().lower()]
             filtered_df = apply_common_filters(round_df)
             display_df = filtered_df.drop(columns=["Round"], errors="ignore")
-            with tab.expander(f"{emoji} {title} - {round_name.strip().title()}", expanded=False):
-                st.dataframe(display_df, use_container_width=True)
+            if not display_df.empty:
+                with tab.expander(f"{emoji} {title} - {round_name.strip().title()}", expanded=False):
+                    st.dataframe(display_df, use_container_width=True)
     else:
         st.warning(f"⚠️ 'Round' column not found in {title} sheet.")
 
