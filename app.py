@@ -9,20 +9,6 @@ schedule_file = "Scoring Schedule 2025.xlsx"
 # Streamlit config
 st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 
-# Add EKAM logo as background image
-background_url = "https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/EKAM.png"
-st.markdown(f"""
-    <style>
-    .stApp {{
-        background-image: url('{background_url}');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.2;
-        background-attachment: fixed;
-    }}
-    </style>
-""", unsafe_allow_html=True)
 
 # Sidebar: Theme toggle
 with st.sidebar:
