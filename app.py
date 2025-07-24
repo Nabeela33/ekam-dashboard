@@ -177,7 +177,7 @@ try:
     
             # Construct GitHub logo URL
             safe_team_name = team.replace(" ", "%20")
-            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/{safe_team_name}.png"
+            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
     
             # Show logo and team name above the expander
             st.markdown(f"""
