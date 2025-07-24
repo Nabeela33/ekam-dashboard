@@ -176,16 +176,16 @@ try:
             )
     
             # Construct GitHub logo URL
-            safe_team_name = team.replace(" ", "%20")
-            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
+            #safe_team_name = team.replace(" ", "%20")
+            #logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
     
             # Show logo and team name above the expander
-            st.markdown(f"""
-                <div style='display: flex; align-items: center; margin-bottom: -10px; margin-top: 20px;'>
-                    <img src="{logo_url}" style="width:55px;height:55px;margin-right:15px;border-radius:10px;">
-                    <h4 style='margin: 0px;'>{team} — {team_total:.0f}</h4>
-                </div>
-            """, unsafe_allow_html=True)
+            #st.markdown(f"""
+                #<div style='display: flex; align-items: center; margin-bottom: -10px; margin-top: 20px;'>
+                    #<img src="{logo_url}" style="width:55px;height:55px;margin-right:15px;border-radius:10px;">
+                    #<h4 style='margin: 0px;'>{team} — {team_total:.0f}</h4>
+               # </div>
+            #""", unsafe_allow_html=True)
     
             # Expander with no label override
             with st.expander("View Players", expanded=False):
