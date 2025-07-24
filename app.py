@@ -5,10 +5,6 @@ import os
 # File paths
 scoreboard_file = "EKAM 2025-ScoreBoard.xlsx"
 schedule_file = "Scoring Schedule 2025.xlsx"
-#download_path = r"C:\Users\611612883\Downloads"
-
-scoreboard_path = scoreboard_file
-schedule_path = schedule_file
 
 # Streamlit config
 st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
@@ -77,8 +73,8 @@ def display_event_with_rounds(tab, df, emoji, title):
         st.warning(f"⚠️ 'Round' column not found in {title} sheet.")
 
 try:
-    score_xls = pd.ExcelFile(scoreboard_path)
-    schedule_xls = pd.ExcelFile(schedule_path)
+    score_xls = pd.ExcelFile(scoreboard_file)
+    schedule_xls = pd.ExcelFile(schedule_file)
 
     score_df = pd.read_excel(score_xls, sheet_name="Schedule")
     team_points_df = pd.read_excel(score_xls, sheet_name="Team Standing", skiprows=2)
@@ -108,6 +104,13 @@ try:
         selected_team = st.selectbox("Select Team", ["All"] + sorted(all_teams))
         selected_player = st.selectbox("Select Player", ["All"] + sorted(all_player))
 
+    # Determine selected player's gender
+    selected_gender = None
+    if selected_player != "All":
+        gender_row = score_df[score_df["Player"].astype(str).str.lower() == selected_player.lower()]
+        if not gender_row.empty and "M/F" in gender_row.columns:
+            selected_gender = gender_row["M/F"].values[0].strip().upper()
+
     def apply_common_filters(df):
         if selected_team != "All":
             team_filters = []
@@ -133,14 +136,13 @@ try:
 
     col1, col2, col3 = st.columns(3)
     col1.metric("⚔️ Matches Played", f"{unique_matches:,}")
-    col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
+    col2.metric("🢑 Teams Participating", f"{unique_teams:,}")
     col3.metric("🎽 Total Players", f"{unique_players:,}")
-
 
     # Tabs
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
-        "🏸 Badminton Events",
+        "🎸 Badminton Events",
         "🏓 TT Events",
         "♟ Chess Events",
         "🔴 Carrom Events",
@@ -151,46 +153,41 @@ try:
 
     with tab2:
         st.subheader("📋 Team and Player Points")
-
-        # Ensure Team Points are numeric
         score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
-
-        # Compute total team points and sort descending
         team_totals = (
             score_df.dropna(subset=["Team Name"])
             .groupby("Team Name")["Team Points"]
             .sum()
             .sort_values(ascending=False)
         )
-
-        # Display sorted teams with player breakdown
         for team in team_totals.index:
             group = score_df[score_df["Team Name"] == team]
             team_total = team_totals[team]
-
-            # Group player-wise points
             team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
             team_players_df = (
                 team_players_df.groupby("Player", as_index=False)
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-
-            with st.expander(f"🧑‍🤝‍🧑 {team} —{team_total}", expanded=False):
+            with st.expander(f"🢑 {team} —{team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
-            
+
     with tab3:
-        display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
-        display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
-        display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
-        display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
-        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
+        if selected_gender in [None, "M"]:
+            display_event_with_rounds(tab3, badminton_men_df, "🎸", "Badminton - Men's Singles")
+            display_event_with_rounds(tab3, badminton_mendoubles_df, "🎸", "Badminton - Men's Doubles")
+        if selected_gender in [None, "F"]:
+            display_event_with_rounds(tab3, badminton_women_df, "🎸", "Badminton - Women's Singles")
+            display_event_with_rounds(tab3, badminton_womendoubles_df, "🎸", "Badminton - Women's Doubles")
+        display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🎸", "Badminton - Mixed Doubles")
 
     with tab4:
-        display_event_with_rounds(tab4, TT_men_df, "🏓", "TT - Men's Singles")
-        display_event_with_rounds(tab4, TT_women_df, "🏓", "TT - Women's Singles")
-        display_event_with_rounds(tab4, TT_womendoubles_df, "🏓", "TT - Women's Doubles")
-        display_event_with_rounds(tab4, TT_mendoubles_df, "🏓", "TT - Men's Doubles")
+        if selected_gender in [None, "M"]:
+            display_event_with_rounds(tab4, TT_men_df, "🏓", "TT - Men's Singles")
+            display_event_with_rounds(tab4, TT_mendoubles_df, "🏓", "TT - Men's Doubles")
+        if selected_gender in [None, "F"]:
+            display_event_with_rounds(tab4, TT_women_df, "🏓", "TT - Women's Singles")
+            display_event_with_rounds(tab4, TT_womendoubles_df, "🏓", "TT - Women's Doubles")
 
     with tab5:
         display_event_with_rounds(tab5, chess_df, "♟", "Chess")
@@ -206,9 +203,7 @@ try:
 
     with tab9:
         display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
-    
 
-                
 except FileNotFoundError as fnf_err:
     st.error(f"❌ File not found: `{fnf_err.filename}`")
 except Exception as e:
