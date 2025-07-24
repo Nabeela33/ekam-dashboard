@@ -182,7 +182,7 @@ try:
             # Show logo and team name above the expander
             st.markdown(f"""
                 <div style='display: flex; align-items: center; margin-bottom: -10px; margin-top: 20px;'>
-                    <img src="{logo_url}" style="width:35px;height:35px;margin-right:10px;border-radius:5px;">
+                    <img src="{logo_url}" style="width:55px;height:55px;margin-right:15px;border-radius:10px;">
                     <h4 style='margin: 0px;'>{team} — {team_total:.0f}</h4>
                 </div>
             """, unsafe_allow_html=True)
