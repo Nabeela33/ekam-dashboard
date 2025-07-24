@@ -157,7 +157,6 @@ try:
     ])
 
     with tab2:
-        st.subheader("📋 Team and Player Points")
         score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
         team_totals = (
             score_df.dropna(subset=["Team Name"])
