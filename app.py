@@ -179,17 +179,16 @@ try:
             safe_team_name = team.replace(" ", "%20")
             logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
     
-            # HTML for label with logo
-            team_label = f"""
-            <div style='display: flex; align-items: center;'>
-                <img src="{logo_url}" style="width:30px;height:30px;margin-right:10px;">
-                <b>{team}</b> — {team_total:.0f}
-            </div>
-            """
+            # Show logo and team name above the expander
+            st.markdown(f"""
+                <div style='display: flex; align-items: center; margin-bottom: -10px; margin-top: 20px;'>
+                    <img src="{logo_url}" style="width:35px;height:35px;margin-right:10px;border-radius:5px;">
+                    <h4 style='margin: 0px;'>{team} — {team_total:.0f}</h4>
+                </div>
+            """, unsafe_allow_html=True)
     
-            # Display in expander with logo as label
-            with st.expander(label=f"{team}", expanded=False):  # Required label, even though we override it
-                st.markdown(team_label, unsafe_allow_html=True)
+            # Expander with no label override
+            with st.expander("View Players", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
 
 
