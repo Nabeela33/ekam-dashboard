@@ -177,7 +177,7 @@ try:
     
             # Construct logo URL
             safe_team_name = team.replace(" ", "%20")
-            logo_url = f"https://github.com/Nabeela33/ekam-dashboard/tree/main/logos/{safe_team_name}.png"
+            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
     
             # Expander title with logo
             team_title = f"<img src='{logo_url}' width='30' style='vertical-align:middle;margin-right:10px;'> <b>{team}</b> — {team_total:.0f}"
