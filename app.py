@@ -18,7 +18,7 @@ st.markdown(f"""
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        opacity: 0.1;
+        opacity: 0.2;
         background-attachment: fixed;
     }}
     </style>
