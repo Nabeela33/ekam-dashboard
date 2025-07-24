@@ -173,19 +173,19 @@ try:
                 st.dataframe(team_players_df, use_container_width=True)
 
     with tab3:
-        if selected_gender in [None, "M"]:
+        if selected_gender in ["M"]:
             display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
             display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
-        if selected_gender in [None, "F"]:
+        if selected_gender in ["F"]:
             display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
             display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
         display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
 
     with tab4:
-        if selected_gender in [None, "M"]:
+        if selected_gender in [ "M"]:
             display_event_with_rounds(tab4, TT_men_df, "🏓", "TT - Men's Singles")
             display_event_with_rounds(tab4, TT_mendoubles_df, "🏓", "TT - Men's Doubles")
-        if selected_gender in [None, "F"]:
+        if selected_gender in ["F"]:
             display_event_with_rounds(tab4, TT_women_df, "🏓", "TT - Women's Singles")
             display_event_with_rounds(tab4, TT_womendoubles_df, "🏓", "TT - Women's Doubles")
 
