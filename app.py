@@ -164,6 +164,7 @@ try:
             .sum()
             .sort_values(ascending=False)
         )
+    
         for team in team_totals.index:
             group = score_df[score_df["Team Name"] == team]
             team_total = team_totals[team]
@@ -173,8 +174,18 @@ try:
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-            with st.expander(f" {team} —{team_total}", expanded=False):
+    
+            # Construct logo URL
+            safe_team_name = team.replace(" ", "%20")
+            logo_url = f"https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/YOUR_BRANCH/logos/{safe_team_name}.png"
+    
+            # Expander title with logo
+            team_title = f"<img src='{logo_url}' width='30' style='vertical-align:middle;margin-right:10px;'> <b>{team}</b> — {team_total:.0f}"
+    
+            with st.expander(label=None, expanded=False):
+                st.markdown(team_title, unsafe_allow_html=True)
                 st.dataframe(team_players_df, use_container_width=True)
+
 
     with tab3:
         if selected_gender in [None, "M"]:
