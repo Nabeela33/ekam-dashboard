@@ -236,26 +236,3 @@ except FileNotFoundError as fnf_err:
     st.error(f"❌ File not found: `{fnf_err.filename}`")
 except Exception as e:
     st.error(f"⚠️ An unexpected error occurred:\n\n`{str(e)}`")
-# EKAM Footer with Logo
-footer_logo_url = "https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/EKAM.png"  # Replace with actual path
-footer_html = f"""
-<style>
-    .footer {{
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        background-color: transparent;
-    }}
-    .footer img {{
-        height: 140px;
-        opacity: 0.9;
-    }}
-</style>
-<div class="footer">
-    <img src="{footer_logo_url}" alt="EKAM Logo" />
-</div>
-"""
-st.markdown(footer_html, unsafe_allow_html=True)
