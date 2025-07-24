@@ -56,25 +56,6 @@ st.markdown("""
     </h1>
 """, unsafe_allow_html=True)
 
-# EKAM logo top-right corner
-logo_url = "https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/EKAM.png"
-logo_html = f"""
-<style>
-.top-right-logo {{
-    position: fixed;
-    top: 15px;
-    right: 20px;
-}}
-.top-right-logo img {{
-    height: 60px;
-}}
-</style>
-<div class="top-right-logo">
-    <img src="{logo_url}" alt="EKAM Logo" />
-</div>
-"""
-st.markdown(logo_html, unsafe_allow_html=True)
-
 def display_event_with_rounds(tab, df, emoji, title):
     if df is None or df.empty:
         return  # Do nothing if df is None or empty
