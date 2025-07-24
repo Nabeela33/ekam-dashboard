@@ -157,6 +157,7 @@ try:
     ])
 
     with tab2:
+        st.subheader("📋 Team and Player Points")
         score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
         team_totals = (
             score_df.dropna(subset=["Team Name"])
@@ -164,7 +165,6 @@ try:
             .sum()
             .sort_values(ascending=False)
         )
-    
         for team in team_totals.index:
             group = score_df[score_df["Team Name"] == team]
             team_total = team_totals[team]
@@ -174,23 +174,8 @@ try:
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-    
-            # Construct GitHub logo URL
-            safe_team_name = team.replace(" ", "%20")
-            logo_url = f"https://raw.githubusercontent.com/Nabeela33/ekam-dashboard/main/logos/{safe_team_name}.png"
-    
-            # Show logo and team name above the expander
-            st.markdown(f"""
-                <div style='display: flex; align-items: center; margin-bottom: -10px; margin-top: 20px;'>
-                    <img src="{logo_url}" style="width:55px;height:55px;margin-right:15px;border-radius:10px;">
-                    <h4 style='margin: 0px;'>{team} — {team_total:.0f}</h4>
-                </div>
-            """, unsafe_allow_html=True)
-    
-            # Expander with no label override
-            with st.expander("View Players", expanded=False):
+            with st.expander(f" {team} —{team_total}", expanded=False):
                 st.dataframe(team_players_df, use_container_width=True)
-
 
     with tab3:
         if selected_gender in [None, "M"]:
