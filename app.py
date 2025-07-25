@@ -288,13 +288,13 @@ try:
                     border: 1px solid #ccc;
                 }
                 .team-name {
-                    font-size: 22px;
-                    font-weight: 700;
+                    font-size: 18px;
+                    font-weight: 500;
                     color: #222;
                 }
                 .team-points {
-                    font-size: 20px;
-                    font-weight: 600;
+                    font-size: 18px;
+                    font-weight: 500;
                     color: #444;
                 }
                 .medal {
