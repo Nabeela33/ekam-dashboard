@@ -254,9 +254,9 @@ try:
             "Hydra Syndicate": "https://i.postimg.cc/Pvw9mXGB/Hydra-Syndicate.png",
             "Kraken Crew": "https://i.postimg.cc/G8N68BfF/Kraken-Crew.png",
             "Spartan Brigade": "https://i.postimg.cc/G89ZmPX3/Spartan-Brigade.png",
-            "Titan Batallion": "https://i.postimg.cc/B8mr37cw/Titan-Batallion.png",
+            "Titan Batallion": "https://i.postimg.cc/w7jCXqBP/Titan-Batallion.png",
             "Zeus Legion": "https://i.postimg.cc/KKG6dhLM/Zeus-Legion.png",
-            "Hermes Herd": "https://i.postimg.cc/L5NxyZNv/Hermes-Herd.png"
+            "Hermes Herd": "https://i.postimg.cc/VJS2hKnW/Hermes-Herd.png"
         }
     
         # Style setup
