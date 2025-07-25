@@ -185,24 +185,29 @@ try:
                 .sort_values("Team Points", ascending=False)
             )
     
-            # Row layout: logo | team name | points
-            col1, col2, col3 = st.columns([1, 5, 2])
+            # Consistent layout using 3 equal-width columns
+            col1, col2, col3 = st.columns([1, 5, 1])
             with col1:
                 if team in team_logos:
                     st.image(team_logos[team], width=60)
+                else:
+                    st.empty()
             with col2:
-                st.markdown(f"<h4 style='margin-top: 20px'>{team}</h4>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='text-align: center; font-size: 20px; font-weight: 600; margin-top: 15px;'>{team}</div>",
+                    unsafe_allow_html=True
+                )
             with col3:
                 st.markdown(
-                    f"<div style='margin-top: 20px; text-align:right; font-size: 20px; color: white; background-color: #4CAF50; padding: 5px 12px; border-radius: 8px;'>"
-                    f"{int(team_total)} pts</div>",
+                    f"<div style='text-align: right; font-size: 18px; margin-top: 18px;'>{int(team_total)} pts</div>",
                     unsafe_allow_html=True
                 )
     
             with st.expander("🔍 View Player Details"):
                 st.dataframe(team_players_df, use_container_width=True)
     
-            st.markdown("<hr style='margin-top: 10px; margin-bottom: 10px;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin-top: 5px; margin-bottom: 10px;'>", unsafe_allow_html=True)
+
 
     with tab3:
         if selected_gender in [None, "M"]:
