@@ -9,7 +9,6 @@ schedule_file = "Scoring Schedule 2025.xlsx"
 # Streamlit config
 st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 
-
 # Sidebar: Theme toggle
 with st.sidebar:
     st.markdown("---")
@@ -59,7 +58,7 @@ st.markdown("""
 
 def display_event_with_rounds(tab, df, emoji, title):
     if df is None or df.empty:
-        return  # Do nothing if df is None or empty
+        return
 
     if "Round" in df.columns:
         unique_rounds = df["Round"].dropna().astype(str).str.strip().unique()
@@ -85,7 +84,6 @@ try:
     team_points_df = pd.read_excel(score_xls, sheet_name="Team Standing", skiprows=2)
     team_points_df = team_points_df[team_points_df["Team Name"].str.lower() != "total"]
 
-    # Schedule sheets
     badminton_men_df = pd.read_excel(schedule_xls, sheet_name="Badminton Men's Singles", skiprows=2)
     badminton_women_df = pd.read_excel(schedule_xls, sheet_name="Badminton Women's Singles", skiprows=2)
     badminton_womendoubles_df = pd.read_excel(schedule_xls, sheet_name="Badminton Women's Doubles", skiprows=2)
@@ -109,7 +107,6 @@ try:
         selected_team = st.selectbox("Select Team", ["All"] + sorted(all_teams))
         selected_player = st.selectbox("Select Player", ["All"] + sorted(all_player))
 
-    # Determine selected player's gender
     selected_gender = None
     if selected_player != "All":
         gender_row = score_df[score_df["Player"].astype(str).str.lower() == selected_player.lower()]
@@ -144,10 +141,9 @@ try:
     col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
     col3.metric("🎽 Total Players", f"{unique_players:,}")
 
-    # Tabs
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
-        "🏸 Badminton Events",
+        "🎸 Badminton Events",
         "🏓 TT Events",
         "♟ Chess Events",
         "🔴 Carrom Events",
@@ -164,6 +160,20 @@ try:
             .sum()
             .sort_values(ascending=False)
         )
+
+        team_logos = {
+            "Apollo Order": "https://i.postimg.cc/xXYhzV64/Apollo-Order.png",
+            "Athena Army": "https://i.postimg.cc/jLyB2S4f/Athena-Army.png",
+            "EKAM": "https://i.postimg.cc/kD0k7bK9/EKAM.png",
+            "Hercules Unit": "https://i.postimg.cc/PNpgG4L2/Hercules-Unit.png",
+            "Hydra Syndicate": "https://i.postimg.cc/Pvw9mXGB/Hydra-Syndicate.png",
+            "Kraken Crew": "https://i.postimg.cc/G8N68BfF/Kraken-Crew.png",
+            "Spartan Brigade": "https://i.postimg.cc/G89ZmPX3/Spartan-Brigade.png",
+            "Titan Batallion": "https://i.postimg.cc/B8mr37cw/Titan-Batallion.png",
+            "Zeus Legion": "https://i.postimg.cc/KKG6dhLM/Zeus-Legion.png",
+            "Hermes Herd": "https://i.postimg.cc/L5NxyZNv/Hermes-Herd.png"
+        }
+
         for team in team_totals.index:
             group = score_df[score_df["Team Name"] == team]
             team_total = team_totals[team]
@@ -173,24 +183,37 @@ try:
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
-            with st.expander(f" {team} —{team_total}", expanded=False):
+
+            logo_url = team_logos.get(team)
+            if logo_url:
+                header_html = f"""
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <img src=\"{logo_url}\" width=\"50\">
+                        <h4 style=\"margin: 0;\">{team} — {team_total}</h4>
+                    </div>
+                """
+            else:
+                header_html = f"<h4>{team} — {team_total}</h4>"
+
+            with st.expander("", expanded=False):
+                st.markdown(header_html, unsafe_allow_html=True)
                 st.dataframe(team_players_df, use_container_width=True)
 
     with tab3:
         if selected_gender in [None, "M"]:
             if not badminton_men_df.empty:
-                display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
+                display_event_with_rounds(tab3, badminton_men_df, "🎸", "Badminton - Men's Singles")
             if not badminton_mendoubles_df.empty:
-                display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
+                display_event_with_rounds(tab3, badminton_mendoubles_df, "🎸", "Badminton - Men's Doubles")
 
         if selected_gender in [None, "F"]:
             if not badminton_women_df.empty:
-                display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
+                display_event_with_rounds(tab3, badminton_women_df, "🎸", "Badminton - Women's Singles")
             if not badminton_womendoubles_df.empty:
-                display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
+                display_event_with_rounds(tab3, badminton_womendoubles_df, "🎸", "Badminton - Women's Doubles")
 
         if not badminton_mixeddoubles_df.empty:
-            display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
+            display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🎸", "Badminton - Mixed Doubles")
 
     with tab4:
         if selected_gender in [None, "M"]:
@@ -214,7 +237,6 @@ try:
 
     with tab9:
         display_event_with_rounds(tab9, sudoku_df, "🔢", "Sudoku")
-
 
 except FileNotFoundError as fnf_err:
     st.error(f"❌ File not found: `{fnf_err.filename}`")
