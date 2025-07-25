@@ -280,11 +280,11 @@ try:
                     gap: 14px;
                 }
                 .team-logo {
-                    height: 60px;
-                    width: 60px;
+                    height: 40px;
+                    width: 40px;
                     object-fit: contain;
                     background-color: #fff;
-                    border-radius: 8px;
+                    border-radius: 6px;
                     border: 1px solid #ccc;
                 }
                 .team-name {
