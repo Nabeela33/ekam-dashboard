@@ -13,7 +13,7 @@ st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 st.markdown("""
     <style>
         html, body, [class*="st-"] {
-            font-family: 'Verdana', sans-serif !important;
+            font-family: 'Courier new', sans-serif !important;
             font-size: 14px !important;
         }
         h1 {
