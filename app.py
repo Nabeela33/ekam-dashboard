@@ -263,10 +263,10 @@ try:
         st.markdown("""
             <style>
                 .team-card {
-                    border-radius: 1px;
+                    border-radius: 8px;
                     background: linear-gradient(135deg, #f0f2f5, #e4e7ed);
-                    padding: 10px 10px;
-                    margin-bottom: 10px;
+                    padding: 6px 8px;
+                    margin-bottom: 8px;
                     box-shadow: 0 4px 8px rgba(0,0,0,0.06);
                 }
                 .team-header {
