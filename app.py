@@ -199,7 +199,7 @@ try:
                 )
             with col3:
                 st.markdown(
-                    f"<div style='text-align: right; font-size: 18px; margin-top: 18px;'>{int(team_total)} pts</div>",
+                    f"<div style='text-align: right; font-size: 18px; margin-top: 18px;'>{team_total} pts</div>",
                     unsafe_allow_html=True
                 )
     
