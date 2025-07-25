@@ -203,7 +203,7 @@ try:
                     unsafe_allow_html=True
                 )
     
-            with st.expander("🔍 View Player Details"):
+            with st.expander("Player Details"):
                 st.dataframe(team_players_df, use_container_width=True)
     
             st.markdown("<hr style='margin-top: 5px; margin-bottom: 10px;'>", unsafe_allow_html=True)
