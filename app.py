@@ -152,52 +152,53 @@ try:
         "🔢 Sudoku Events"
     ])
 
-    with tab2:
-        score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
-        team_totals = (
-            score_df.dropna(subset=["Team Name"])
-            .groupby("Team Name")["Team Points"]
+with tab2:
+    score_df["Team Points"] = pd.to_numeric(score_df["Team Points"], errors="coerce")
+    team_totals = (
+        score_df.dropna(subset=["Team Name"])
+        .groupby("Team Name")["Team Points"]
+        .sum()
+        .sort_values(ascending=False)
+    )
+
+    # Logo mapping
+    team_logos = {
+        "Apollo Order": "https://i.postimg.cc/xXYhzV64/Apollo-Order.png",
+        "Athena Army": "https://i.postimg.cc/jLyB2S4f/Athena-Army.png",
+        "EKAM": "https://i.postimg.cc/kD0k7bK9/EKAM.png",
+        "Hercules Unit": "https://i.postimg.cc/PNpgG4L2/Hercules-Unit.png",
+        "Hydra Syndicate": "https://i.postimg.cc/Pvw9mXGB/Hydra-Syndicate.png",
+        "Kraken Crew": "https://i.postimg.cc/G8N68BfF/Kraken-Crew.png",
+        "Spartan Brigade": "https://i.postimg.cc/G89ZmPX3/Spartan-Brigade.png",
+        "Titan Batallion": "https://i.postimg.cc/B8mr37cw/Titan-Batallion.png",
+        "Zeus Legion": "https://i.postimg.cc/KKG6dhLM/Zeus-Legion.png",
+        "Hermes Herd": "https://i.postimg.cc/L5NxyZNv/Hermes-Herd.png"
+    }
+
+    for team in team_totals.index:
+        group = score_df[score_df["Team Name"] == team]
+        team_total = team_totals[team]
+        team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
+        team_players_df = (
+            team_players_df.groupby("Player", as_index=False)
             .sum()
-            .sort_values(ascending=False)
+            .sort_values("Team Points", ascending=False)
         )
 
-        team_logos = {
-            "Apollo Order": "https://i.postimg.cc/xXYhzV64/Apollo-Order.png",
-            "Athena Army": "https://i.postimg.cc/jLyB2S4f/Athena-Army.png",
-            "EKAM": "https://i.postimg.cc/kD0k7bK9/EKAM.png",
-            "Hercules Unit": "https://i.postimg.cc/PNpgG4L2/Hercules-Unit.png",
-            "Hydra Syndicate": "https://i.postimg.cc/Pvw9mXGB/Hydra-Syndicate.png",
-            "Kraken Crew": "https://i.postimg.cc/G8N68BfF/Kraken-Crew.png",
-            "Spartan Brigade": "https://i.postimg.cc/G89ZmPX3/Spartan-Brigade.png",
-            "Titan Batallion": "https://i.postimg.cc/B8mr37cw/Titan-Batallion.png",
-            "Zeus Legion": "https://i.postimg.cc/KKG6dhLM/Zeus-Legion.png",
-            "Hermes Herd": "https://i.postimg.cc/L5NxyZNv/Hermes-Herd.png"
-        }
+        # Layout for team header with logo
+        cols = st.columns([1, 6, 2])
+        with cols[0]:
+            if team in team_logos:
+                st.image(team_logos[team], width=60)
+        with cols[1]:
+            st.subheader(team)
+        with cols[2]:
+            st.metric("Total Points", int(team_total))
 
-        for team in team_totals.index:
-            group = score_df[score_df["Team Name"] == team]
-            team_total = team_totals[team]
-            team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
-            team_players_df = (
-                team_players_df.groupby("Player", as_index=False)
-                .sum()
-                .sort_values("Team Points", ascending=False)
-            )
-
-            logo_url = team_logos.get(team)
-            if logo_url:
-                header_html = f"""
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <img src=\"{logo_url}\" width=\"50\">
-                        <h4 style=\"margin: 0;\">{team} — {team_total}</h4>
-                    </div>
-                """
-            else:
-                header_html = f"<h4>{team} — {team_total}</h4>"
-
-            with st.expander("", expanded=False):
-                st.markdown(header_html, unsafe_allow_html=True)
-                st.dataframe(team_players_df, use_container_width=True)
+        # Player details in expander
+        with st.expander("View Player Details"):
+            st.dataframe(team_players_df, use_container_width=True)
+        st.markdown("---")
 
     with tab3:
         if selected_gender in [None, "M"]:
