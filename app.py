@@ -14,7 +14,7 @@ st.markdown("""
     <style>
         html, body, [class*="st-"] {
             font-family: 'Segoe UI', sans-serif !important;
-            font-size: 16px !important;
+            font-size: 12px !important;
         }
         h1 {
             font-size: 36px !important;
