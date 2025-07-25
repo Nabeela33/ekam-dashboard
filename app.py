@@ -29,7 +29,7 @@ st.markdown("""
             font-size: 22px !important;
         }
         h5, h6, label {
-            font-size: 18px !important;
+            font-size: 20px !important;
         }
         .stTabs [role="tab"] {
             font-size: 18px !important;
@@ -40,7 +40,7 @@ st.markdown("""
             font-weight: bold;
         }
         .stDataFrame, .stTable {
-            font-size: 15px !important;
+            font-size: 20px !important;
         }
     </style>
 """, unsafe_allow_html=True)
