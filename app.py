@@ -332,7 +332,7 @@ try:
             """
             st.markdown(card_html, unsafe_allow_html=True)
     
-            with st.expander("🔍 Player Details"):
+            with st.expander("🔍 Players"):
                 st.dataframe(team_players_df, use_container_width=True)
 
 
