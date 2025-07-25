@@ -13,37 +13,38 @@ st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 st.markdown("""
     <style>
         html, body, [class*="st-"] {
-            font-family: 'Serif', sans-serif !important;
-            font-size: 14px !important;
+            font-family: 'Segoe UI', sans-serif !important;
+            font-size: 16px !important;
         }
         h1 {
-            font-size: 34px !important;
+            font-size: 36px !important;
         }
         h2 {
-            font-size: 28px !important;
+            font-size: 30px !important;
         }
         h3 {
-            font-size: 24px !important;
+            font-size: 26px !important;
         }
         h4 {
             font-size: 22px !important;
         }
         h5, h6, label {
-            font-size: 20px !important;
+            font-size: 18px !important;
         }
         .stTabs [role="tab"] {
             font-size: 18px !important;
             font-weight: 600 !important;
         }
         .stMetricValue {
-            font-size: 30px !important;
+            font-size: 24px !important;
             font-weight: bold;
         }
         .stDataFrame, .stTable {
-            font-size: 20px !important;
+            font-size: 15px !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Sidebar: Theme toggle
 with st.sidebar:
