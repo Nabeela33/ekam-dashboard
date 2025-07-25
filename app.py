@@ -9,6 +9,42 @@ schedule_file = "Scoring Schedule 2025.xlsx"
 # Streamlit config
 st.set_page_config(page_title="EKAM 2025 Sports Dashboard", layout="wide")
 
+# Global font styling for the entire app
+st.markdown("""
+    <style>
+        html, body, [class*="st-"] {
+            font-family: 'Segoe UI', sans-serif !important;
+            font-size: 16px !important;
+        }
+        h1 {
+            font-size: 36px !important;
+        }
+        h2 {
+            font-size: 30px !important;
+        }
+        h3 {
+            font-size: 26px !important;
+        }
+        h4 {
+            font-size: 22px !important;
+        }
+        h5, h6, label {
+            font-size: 18px !important;
+        }
+        .stTabs [role="tab"] {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+        }
+        .stMetricValue {
+            font-size: 24px !important;
+            font-weight: bold;
+        }
+        .stDataFrame, .stTable {
+            font-size: 15px !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # Sidebar: Theme toggle
 with st.sidebar:
     st.markdown("---")
