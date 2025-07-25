@@ -14,33 +14,33 @@ st.markdown("""
     <style>
         html, body, [class*="st-"] {
             font-family: 'Segoe UI', sans-serif !important;
-            font-size: 12px !important;
+            font-size: 14px !important;
         }
         h1 {
-            font-size: 36px !important;
-        }
-        h2 {
             font-size: 30px !important;
         }
-        h3 {
+        h2 {
             font-size: 26px !important;
         }
-        h4 {
+        h3 {
             font-size: 22px !important;
         }
+        h4 {
+            font-size: 20px !important;
+        }
         h5, h6, label {
-            font-size: 18px !important;
+            font-size: 16px !important;
         }
         .stTabs [role="tab"] {
-            font-size: 18px !important;
+            font-size: 16px !important;
             font-weight: 600 !important;
         }
         .stMetricValue {
-            font-size: 24px !important;
+            font-size: 20px !important;
             font-weight: bold;
         }
         .stDataFrame, .stTable {
-            font-size: 15px !important;
+            font-size: 13px !important;
         }
     </style>
 """, unsafe_allow_html=True)
