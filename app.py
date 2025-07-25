@@ -23,10 +23,10 @@ st.markdown("""
             font-size: 28px !important;
         }
         h3 {
-            font-size: 22px !important;
+            font-size: 24px !important;
         }
         h4 {
-            font-size: 20px !important;
+            font-size: 22px !important;
         }
         h5, h6, label {
             font-size: 16px !important;
