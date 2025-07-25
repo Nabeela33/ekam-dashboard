@@ -17,10 +17,10 @@ st.markdown("""
             font-size: 14px !important;
         }
         h1 {
-            font-size: 32px !important;
+            font-size: 34px !important;
         }
         h2 {
-            font-size: 26px !important;
+            font-size: 28px !important;
         }
         h3 {
             font-size: 22px !important;
