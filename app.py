@@ -175,38 +175,82 @@ try:
             "Hermes Herd": "https://i.postimg.cc/L5NxyZNv/Hermes-Herd.png"
         }
     
-        for team in team_totals.index:
+        # Style setup
+        st.markdown("""
+            <style>
+                .team-card {
+                    border-radius: 12px;
+                    background: linear-gradient(135deg, #f0f2f5, #e4e7ed);
+                    padding: 16px 20px;
+                    margin-bottom: 16px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+                }
+                .team-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .team-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                }
+                .team-logo {
+                    height: 60px;
+                    width: 60px;
+                    object-fit: contain;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                }
+                .team-name {
+                    font-size: 22px;
+                    font-weight: 700;
+                    color: #222;
+                }
+                .team-points {
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #444;
+                }
+                .medal {
+                    font-size: 26px;
+                    margin-right: 6px;
+                }
+            </style>
+        """, unsafe_allow_html=True)
+    
+        medals = ["🥇", "🥈", "🥉"]
+        for idx, team in enumerate(team_totals.index):
+            team_total = int(team_totals[team])
             group = score_df[score_df["Team Name"] == team]
-            team_total = team_totals[team]
-            team_players_df = group[["Player", "Team Points"]].dropna(subset=["Player"]).copy()
             team_players_df = (
-                team_players_df.groupby("Player", as_index=False)
+                group[["Player", "Team Points"]]
+                .dropna(subset=["Player"])
+                .groupby("Player", as_index=False)
                 .sum()
                 .sort_values("Team Points", ascending=False)
             )
     
-            # Consistent layout using 3 equal-width columns
-            col1, col2, col3 = st.columns([1, 5, 1])
-            with col1:
-                if team in team_logos:
-                    st.image(team_logos[team], width=60)
-                else:
-                    st.empty()
-            with col2:
-                st.markdown(
-                    f"<div style='text-align: center; font-size: 20px; font-weight: 600; margin-top: 15px;'>{team}</div>",
-                    unsafe_allow_html=True
-                )
-            with col3:
-                st.markdown(
-                    f"<div style='text-align: right; font-size: 18px; margin-top: 18px;'>{team_total} pts</div>",
-                    unsafe_allow_html=True
-                )
+            logo_url = team_logos.get(team, "")
+            medal = medals[idx] if idx < 3 else ""
     
-            with st.expander("Player Details"):
+            card_html = f"""
+                <div class="team-card">
+                    <div class="team-header">
+                        <div class="team-left">
+                            {'<img src="' + logo_url + '" class="team-logo">' if logo_url else ''}
+                            <span class="team-name">{medal} {team}</span>
+                        </div>
+                        <div class="team-points">{team_total} pts</div>
+                    </div>
+                </div>
+            """
+            st.markdown(card_html, unsafe_allow_html=True)
+    
+            with st.expander("🔍 Player Details"):
                 st.dataframe(team_players_df, use_container_width=True)
-    
-            st.markdown("<hr style='margin-top: 5px; margin-bottom: 10px;'>", unsafe_allow_html=True)
+
 
 
     with tab3:
