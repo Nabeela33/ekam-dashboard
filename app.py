@@ -14,7 +14,7 @@ st.markdown("""
     <style>
         html, body, [class*="st-"] {
             font-family: 'Serif', sans-serif !important;
-            font-size: 18px !important;
+            font-size: 14px !important;
         }
         h1 {
             font-size: 34px !important;
