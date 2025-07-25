@@ -306,7 +306,7 @@ try:
     
         medals = ["🥇", "🥈", "🥉"]
         for idx, team in enumerate(team_totals.index):
-            team_total = int(team_totals[team])
+            team_total = team_totals[team]
             group = score_df[score_df["Team Name"] == team]
             team_players_df = (
                 group[["Player", "Team Points"]]
