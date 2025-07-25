@@ -17,7 +17,7 @@ st.markdown("""
             font-size: 16px !important;
         }
         h1 {
-            font-size: 36px !important;
+            font-size: 42px !important;
         }
         h2 {
             font-size: 30px !important;
