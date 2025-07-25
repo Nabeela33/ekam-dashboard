@@ -265,8 +265,8 @@ try:
                 .team-card {
                     border-radius: 12px;
                     background: linear-gradient(135deg, #f0f2f5, #e4e7ed);
-                    padding: 16px 20px;
-                    margin-bottom: 16px;
+                    padding: 12px 16px;
+                    margin-bottom: 12px;
                     box-shadow: 0 4px 8px rgba(0,0,0,0.06);
                 }
                 .team-header {
