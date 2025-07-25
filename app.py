@@ -36,7 +36,7 @@ st.markdown("""
             font-weight: 600 !important;
         }
         .stMetricValue {
-            font-size: 20px !important;
+            font-size: 24px !important;
             font-weight: bold;
         }
         .stDataFrame, .stTable {
