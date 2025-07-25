@@ -185,20 +185,24 @@ try:
                 .sort_values("Team Points", ascending=False)
             )
     
-            # Layout for team header with logo
-            cols = st.columns([1, 6, 2])
-            with cols[0]:
+            # Row layout: logo | team name | points
+            col1, col2, col3 = st.columns([1, 5, 2])
+            with col1:
                 if team in team_logos:
                     st.image(team_logos[team], width=60)
-            with cols[1]:
-                st.subheader(team)
-            with cols[2]:
-                st.metric("Total Points", int(team_total))
+            with col2:
+                st.markdown(f"<h4 style='margin-top: 20px'>{team}</h4>", unsafe_allow_html=True)
+            with col3:
+                st.markdown(
+                    f"<div style='margin-top: 20px; text-align:right; font-size: 20px; color: white; background-color: #4CAF50; padding: 5px 12px; border-radius: 8px;'>"
+                    f"{int(team_total)} pts</div>",
+                    unsafe_allow_html=True
+                )
     
-            # Player details in expander
-            with st.expander("View Player Details"):
+            with st.expander("🔍 View Player Details"):
                 st.dataframe(team_players_df, use_container_width=True)
-            st.markdown("---")
+    
+            st.markdown("<hr style='margin-top: 10px; margin-bottom: 10px;'>", unsafe_allow_html=True)
 
     with tab3:
         if selected_gender in [None, "M"]:
