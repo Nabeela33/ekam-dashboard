@@ -173,10 +173,57 @@ try:
     unique_teams = score_df["Team Name"].dropna().nunique()
     unique_players = score_df["Player"].dropna().nunique()
 
+    # Custom styling for centered and larger metric display
+    st.markdown("""
+        <style>
+        .metric-container {
+            text-align: center;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .metric-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Metric display using HTML
     col1, col2, col3 = st.columns(3)
-    col1.metric("⚔️ Matches Played", f"{unique_matches:,}")
-    col2.metric("🧑‍🧑 Teams Participating", f"{unique_teams:,}")
-    col3.metric("🎽 Total Players", f"{unique_players:,}")
+    
+    with col1:
+        st.markdown(f"""
+            <div class="metric-container">
+                <div class="metric-header">⚔️ Matches Played</div>
+                <div class="metric-value">{unique_matches:,}</div>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown(f"""
+            <div class="metric-container">
+                <div class="metric-header">🧑‍🧑 Teams Participating</div>
+                <div class="metric-value">{unique_teams:,}</div>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown(f"""
+            <div class="metric-container">
+                <div class="metric-header">🎽 Total Players</div>
+                <div class="metric-value">{unique_players:,}</div>
+            </div>
+        """, unsafe_allow_html=True)
+
 
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
