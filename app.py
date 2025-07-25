@@ -143,7 +143,7 @@ try:
 
     tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "📈 Team & Player Points", 
-        "🎸 Badminton Events",
+        "🏸 Badminton Events",
         "🏓 TT Events",
         "♟ Chess Events",
         "🔴 Carrom Events",
@@ -212,18 +212,18 @@ try:
     with tab3:
         if selected_gender in [None, "M"]:
             if not badminton_men_df.empty:
-                display_event_with_rounds(tab3, badminton_men_df, "🎸", "Badminton - Men's Singles")
+                display_event_with_rounds(tab3, badminton_men_df, "🏸", "Badminton - Men's Singles")
             if not badminton_mendoubles_df.empty:
-                display_event_with_rounds(tab3, badminton_mendoubles_df, "🎸", "Badminton - Men's Doubles")
+                display_event_with_rounds(tab3, badminton_mendoubles_df, "🏸", "Badminton - Men's Doubles")
 
         if selected_gender in [None, "F"]:
             if not badminton_women_df.empty:
-                display_event_with_rounds(tab3, badminton_women_df, "🎸", "Badminton - Women's Singles")
+                display_event_with_rounds(tab3, badminton_women_df, "🏸", "Badminton - Women's Singles")
             if not badminton_womendoubles_df.empty:
-                display_event_with_rounds(tab3, badminton_womendoubles_df, "🎸", "Badminton - Women's Doubles")
+                display_event_with_rounds(tab3, badminton_womendoubles_df, "🏸", "Badminton - Women's Doubles")
 
         if not badminton_mixeddoubles_df.empty:
-            display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🎸", "Badminton - Mixed Doubles")
+            display_event_with_rounds(tab3, badminton_mixeddoubles_df, "🏸", "Badminton - Mixed Doubles")
 
     with tab4:
         if selected_gender in [None, "M"]:
